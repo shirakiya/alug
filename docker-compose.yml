@@ -1,0 +1,10 @@
+version: "3.7"
+services:
+  alug:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: alug
+    container_name: alug
+    volumes:
+      - ./:/opt/alug/
