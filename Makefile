@@ -7,6 +7,9 @@ docker-login:
 run:
 	go run cmd/main.go
 
+build:
+	CGO_ENABLED=0 go build -o ./bin/alug ./cmd/alug/main.go
+
 test:
 	go test -v ./...
 
