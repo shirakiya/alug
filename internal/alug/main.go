@@ -11,10 +11,11 @@ import (
 const usage string = "AWS Login URL Generator \"alug\". Create URL attached federation token to login AWS."
 
 // GetConsoleLoginURL ...
-func GetConsoleLoginURL() error {
+func GetConsoleLoginURL(appName string, version string) error {
 	app := &cli.App{
-		Name:  "alug",
-		Usage: usage,
+		Name:    appName,
+		Version: version,
+		Usage:   usage,
 		Flags: []cli.Flag{
 			&cli.StringFlag{
 				Name:  "profile",
