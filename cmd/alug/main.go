@@ -16,7 +16,7 @@ const (
 )
 
 func main() {
-	err := alug.GetConsoleLoginURL()
+	err := alug.GetConsoleLoginURL(AppName, Version)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "%s\n", err)
 		os.Exit(1)
