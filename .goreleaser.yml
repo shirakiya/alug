@@ -20,9 +20,7 @@ builds:
       - -X main.Version={{.Version}}
     env:
       - CGO_ENABLED=0
-archive:
-  format: tar.gz
-brew:
+brews:
   github:
     owner: shirakiya
     name: homebrew-alug
