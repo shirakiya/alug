@@ -21,13 +21,13 @@ builds:
     env:
       - CGO_ENABLED=0
 brews:
-  github:
-    owner: shirakiya
-    name: homebrew-alug
-  homepage: https://github.com/shirakiya/alug
-  description: CLI command to generate the URL to login AWS console.
-  url_template: "https://github.com/shirakiya/alug/releases/{{ .Tag }}/{{ .ArtifactName }}"
-  install: |
-    bin.install "alug"
-  test: |
-    system "#{bin}/alug -v"
+  - github:
+      owner: shirakiya
+      name: homebrew-alug
+    homepage: https://github.com/shirakiya/alug
+    description: CLI command to generate the URL to login AWS console.
+    url_template: https://github.com/shirakiya/alug/releases/{{ .Tag }}/{{ .ArtifactName }}
+    install: |
+      bin.install "alug"
+    test: |
+      system "#{bin}/alug -v"
