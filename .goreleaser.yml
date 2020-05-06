@@ -16,8 +16,7 @@ builds:
     goarm:
       - "6"
     ldflags:
-      - -s -w
-      - -X main.Version={{.Version}}
+      - -s -w -X main.Version={{ .Version }}
     env:
       - CGO_ENABLED=0
 brews:
