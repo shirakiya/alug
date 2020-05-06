@@ -7,13 +7,11 @@ import (
 	"github.com/shirakiya/alug/internal/alug"
 )
 
-const (
-	// AppName is this application name.
-	AppName = "alug"
+// Version shows build version. Its format is Semver.
+var Version = "unset"
 
-	// Version shows build version. (Semver)
-	Version = "unset"
-)
+// AppName is this application name.
+const AppName = "alug"
 
 func main() {
 	err := alug.GetConsoleLoginURL(AppName, Version)
