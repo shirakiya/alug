@@ -13,15 +13,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-func createConfig(
-	profile string,
-	durationSeconds int,
-	mfaSerial string,
-	roleArn string,
-	roleSessionName string,
-	sourceProfile string,
-	tokenCode string,
-) (*internal.Config, error) {
+func createConfig(profile string, tokenCode string) (*internal.Config, error) {
 	c := new(internal.Config)
 
 	awsFileConfig, err := config.GetAwsFileConfig(config.AwsConfigPath, profile)
@@ -29,46 +21,33 @@ func createConfig(
 		return c, err
 	}
 
-	// duration-seconds (exists default value)
+	// duration-seconds (have default value)
+	durationSeconds := awsFileConfig.DurationSeconds
 	if durationSeconds == 0 {
-		durationSeconds = awsFileConfig.DurationSeconds
-		if durationSeconds == 0 {
-			durationSeconds = aws.DefaultDurationSeconds
-		}
-	}
-
-	// mfa-serial
-	if mfaSerial == "" {
-		mfaSerial = awsFileConfig.MfaSerial
+		durationSeconds = aws.DefaultDurationSeconds
 	}
 
 	// role-arn (disallow empty)
+	roleArn := awsFileConfig.RoleArn
 	if roleArn == "" {
-		roleArn = awsFileConfig.RoleArn
-		if roleArn == "" {
-			return c, errors.New("role-arn must be defined")
-		}
+		return c, errors.New("role-arn must be defined")
 	}
 
-	// role-session-name (disallow empty)
-	if awsFileConfig.RoleSessionName != "" {
-		roleSessionName = awsFileConfig.RoleSessionName
-	}
+	// role-session-name (have default value)
+	roleSessionName := awsFileConfig.RoleSessionName
 	if roleSessionName == "" {
-		return c, errors.New("Empty role-session-name is not allowed")
+		roleSessionName = config.CreateDefaultRoleSessionName()
 	}
 
 	// source-profile (exists default value)
+	sourceProfile := awsFileConfig.SourceProfile
 	if sourceProfile == "" {
-		sourceProfile = awsFileConfig.SourceProfile
-		if sourceProfile == "" {
-			sourceProfile = aws.DefaultSourceProfile
-		}
+		sourceProfile = aws.DefaultSourceProfile
 	}
 
 	c = &internal.Config{
 		DurationSeconds: durationSeconds,
-		MfaSerial:       internal.MfaSerial(mfaSerial),
+		MfaSerial:       internal.MfaSerial(awsFileConfig.MfaSerial),
 		RoleArn:         internal.RoleArn(roleArn),
 		RoleSessionName: internal.RoleSessionName(roleSessionName),
 		SourceProfile:   internal.SourceProfile(sourceProfile),
@@ -100,22 +79,9 @@ func questionAndSetTokenCode(c *internal.Config) {
 // CommandAction ...
 func CommandAction(c *cli.Context) error {
 	profile := c.String("profile")
-	durationSeconds := c.Int("duration-seconds")
-	mfaSerial := c.String("mfa-serial")
-	roleArn := c.String("role-arn")
-	roleSessionName := c.String("role-session-name")
-	sourceProfile := c.String("source-profile")
 	tokenCode := c.String("token-code")
 
-	config, err := createConfig(
-		profile,
-		durationSeconds,
-		mfaSerial,
-		roleArn,
-		roleSessionName,
-		sourceProfile,
-		tokenCode,
-	)
+	config, err := createConfig(profile, tokenCode)
 	if err != nil {
 		return err
 	}
@@ -130,7 +96,7 @@ func CommandAction(c *cli.Context) error {
 	}
 
 	// Final output.
-	fmt.Println(url)
+	fmt.Printf("\n%s\n", url)
 
 	return nil
 }

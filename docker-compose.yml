@@ -8,3 +8,4 @@ services:
     container_name: alug
     volumes:
       - ./:/opt/alug/
+      - ~/.aws/:/root/.aws
