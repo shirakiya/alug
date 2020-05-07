@@ -20,7 +20,7 @@ func TestCreateConfigAsGetAwsFileConfigThrowsError(t *testing.T) {
 	})
 	defer patch.Unpatch()
 
-	got, err := createConfig("", 10, "", "", "", "", "")
+	got, err := createConfig("", "")
 
 	if *got != expected {
 		t.Errorf("expect %+v, got %+v", expected, *got)
@@ -44,7 +44,7 @@ func TestCreateConfigSetFromAwsFileConfig(t *testing.T) {
 	})
 	defer patch.Unpatch()
 
-	got, err := createConfig("", 0, "", "", "", "", "")
+	got, err := createConfig("", "")
 
 	expected := internal.Config{
 		MfaSerial:       internal.MfaSerial("FromAwsFileConfig"),
@@ -66,7 +66,7 @@ func TestCreateConfigSetDefaultValue(t *testing.T) {
 	mockAwsFileConfig := config.AwsFileConfig{
 		MfaSerial:       "FromAwsFileConfig",
 		RoleArn:         "FromAwsFileConfig",
-		RoleSessionName: "FromAwsFileConfig",
+		RoleSessionName: "",
 		DurationSeconds: 0,
 		SourceProfile:   "",
 	}
@@ -76,10 +76,14 @@ func TestCreateConfigSetDefaultValue(t *testing.T) {
 	})
 	defer patch.Unpatch()
 
-	got, err := createConfig("", 0, "", "", "", "", "")
+	got, err := createConfig("", "")
 
 	if got.DurationSeconds != aws.DefaultDurationSeconds {
 		t.Errorf("expect %v, got %v", aws.DefaultDurationSeconds, got.DurationSeconds)
+	}
+	expectedRoleSessionName := config.CreateDefaultRoleSessionName()
+	if string(got.RoleSessionName) != expectedRoleSessionName {
+		t.Errorf("expect %v, got %v", got.RoleSessionName, expectedRoleSessionName)
 	}
 	if got.SourceProfile != aws.DefaultSourceProfile {
 		t.Errorf("expect %v, got %v", aws.DefaultSourceProfile, got.SourceProfile)
@@ -103,7 +107,7 @@ func TestCreateConfigAllowsEmptyValue(t *testing.T) {
 	})
 	defer patch.Unpatch()
 
-	got, err := createConfig("", 0, "", "", "", "", "")
+	got, err := createConfig("", "")
 
 	if got.MfaSerial != "" {
 		t.Errorf("expect %v, got %v", "", got.MfaSerial)
@@ -127,30 +131,9 @@ func TestCreateConfigDisallowsEmptyRoleName(t *testing.T) {
 	})
 	defer patch.Unpatch()
 
-	_, err := createConfig("", 0, "", "", "", "", "")
+	_, err := createConfig("", "")
 
 	if err == nil {
 		t.Errorf("expect %v, got %v", "role-arn must be defined", err)
-	}
-}
-
-func TestCreateConfigDisallowsEmptyRoleSessionName(t *testing.T) {
-	mockAwsFileConfig := config.AwsFileConfig{
-		MfaSerial:       "FromAwsFileConfig",
-		RoleArn:         "FromAwsFileConfig",
-		RoleSessionName: "",
-		DurationSeconds: 0,
-		SourceProfile:   "FromAwsFileConfig",
-	}
-
-	patch := monkey.Patch(config.GetAwsFileConfig, func(path string, profile string) (config.AwsFileConfig, error) {
-		return mockAwsFileConfig, nil
-	})
-	defer patch.Unpatch()
-
-	_, err := createConfig("", 0, "", "", "", "", "")
-
-	if err == nil {
-		t.Errorf("expect %v, got %v", "Empty role-session-name is not allowed", err)
 	}
 }
