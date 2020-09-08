@@ -6,6 +6,8 @@ services:
       dockerfile: Dockerfile
     image: alug
     container_name: alug
+    environment:
+      - RUN_CONTEXT=
     volumes:
       - ./:/opt/alug/
       - ~/.aws/:/root/.aws
