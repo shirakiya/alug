@@ -18,6 +18,18 @@ jobs:
       - name: Go fmt
         run: make fmt
 
+  lint:
+    runs-on: ubuntu-latest
+    env:
+      RUN_CONTEXT:
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-go@v2
+        with:
+          go-version: ${{ env.GO_VERSION }}
+      - name: Go lint
+        run: make lint
+
   test:
     runs-on: ubuntu-latest
     env:
