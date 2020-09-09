@@ -64,7 +64,7 @@ func questionAndSetTokenCode(c *internal.Config) {
 		fmt.Print("Input MFA Code: ")
 		input, _ := reader.ReadString('\n')
 		// convert CRLF to LF
-		input = strings.Replace(input, "\n", "", -1)
+		input = strings.ReplaceAll(input, "\n", "")
 
 		if input == "" || len(input) != 6 {
 			fmt.Println("Invalid input, continue")
