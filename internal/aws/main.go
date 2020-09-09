@@ -91,14 +91,15 @@ func getSigninToken(output *sts.AssumeRoleOutput, c *internal.Config) (*SigninTo
 	q.Set("Session", string(credJSON))
 	u.RawQuery = q.Encode()
 
-	resp, err := http.Get(u.String())
+	resp, err := http.Get(u.String()) // nolint:noctx
 	if err != nil {
 		return new(SigninTokenResponse), err
 	}
-	defer resp.Body.Close()
+	defer resp.Body.Close() // nolint:errcheck
+
 	byteBody, _ := ioutil.ReadAll(resp.Body)
 
-	if resp.StatusCode != 200 {
+	if resp.StatusCode != http.StatusOK {
 		return new(SigninTokenResponse), errors.New(string(byteBody))
 	}
 

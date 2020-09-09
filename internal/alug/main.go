@@ -8,9 +8,11 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-const usage string = "AWS console Login URL Generator \"alug\". Create URL attached federation token to login AWS console."
+// usage message.
+const usage string = "AWS console Login URL Generator \"alug\". " +
+	"Create URL attached federation token to login AWS console."
 
-// GetConsoleLoginURL ...
+// GetConsoleLoginURL provides console login URL by input command.
 func GetConsoleLoginURL(appName string, version string) error {
 	app := &cli.App{
 		Name:      appName,
