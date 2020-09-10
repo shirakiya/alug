@@ -91,7 +91,7 @@ The ARN of an IAM role that you want to switch to.
 ### duration_seconds
 (optional, default: `3600`)  
 
-The maximum duration time of the role session, in seconds.()
+The maximum duration time of the role session.
 Specifies the maximum duration of the role session, in seconds. The value can range
 from 900 seconds (15 minutes) up to the maximum session duration setting for the role
 (which can be a maximum of 43200).
