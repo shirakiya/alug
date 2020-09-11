@@ -74,7 +74,7 @@ $ go get github.com/shirakiya/alug/...
 ## Configuration
 alug requires some variable in `~/.aws/config`.  
 Show the sample config below included variables related to alug.
-(Full settings in `~/.aws/config` is described in the [official article](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html) )
+(Full settings in `~/.aws/config` is described in the [official document](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html) )
 
 ```
 [profile foo]
