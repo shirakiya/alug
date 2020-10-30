@@ -17,7 +17,7 @@ jobs:
           go-version: ${{ env.GO_VERSION }}
       - uses: actions/cache@v2
         with:
-          path: ~/go  # GOROOT
+          path: ~/go/pkg/mod  # GOMODCACHE
           key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
           restore-keys: |
             ${{ runner.os }}-go-
@@ -36,7 +36,7 @@ jobs:
           go-version: ${{ env.GO_VERSION }}
       - uses: actions/cache@v2
         with:
-          path: ~/go  # GOROOT
+          path: ~/go/pkg/mod  # GOMODCACHE
           key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
           restore-keys: |
             ${{ runner.os }}-go-
@@ -57,7 +57,7 @@ jobs:
           go-version: ${{ env.GO_VERSION }}
       - uses: actions/cache@v2
         with:
-          path: ~/go  # GOROOT
+          path: ~/go/pkg/mod  # GOMODCACHE
           key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
           restore-keys: |
             ${{ runner.os }}-go-
