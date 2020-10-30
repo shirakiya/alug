@@ -12,7 +12,7 @@ run:
 build:
 	CGO_ENABLED=0 go build -o ./bin/alug ./cmd/alug/main.go
 
-test:
+test: mod/tidy
 	$(RUN_CONTEXT) go test -v ./...
 
 coverage:
@@ -20,6 +20,9 @@ coverage:
 
 fmt:
 	$(RUN_CONTEXT) go fmt ./...
+
+mod/tidy:
+	$(RUN_CONTEXT) go mod tidy
 
 lint:
 	$(RUN_CONTEXT) golangci-lint run
