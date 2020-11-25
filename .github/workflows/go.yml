@@ -43,6 +43,8 @@ jobs:
             ${{ runner.os }}-
       - name: Install golangci-lint
         run: curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.32.0
+      - name: Workaround https://github.com/golangci/golangci-lint/issues/825
+        run: go install ./...
       - name: Go lint
         run: make lint
 
