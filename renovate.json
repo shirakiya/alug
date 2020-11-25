@@ -1,5 +1,9 @@
 {
   "extends": [
     "config:base"
-  ]
+  ],
+  "automerge": true,
+  "labels": ["renovate"],
+  "schedule": ["before 9am"],
+  "timezone": "Asia/Tokyo"
 }
