@@ -4,6 +4,7 @@
   ],
   "automerge": true,
   "labels": ["renovate"],
+  "postUpdateOptions": ["gomodTidy"],
   "schedule": ["before 9am"],
   "timezone": "Asia/Tokyo"
 }
