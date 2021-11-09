@@ -20,7 +20,7 @@ builds:
     env:
       - CGO_ENABLED=0
 brews:
-  - github:
+  - tap:
       owner: shirakiya
       name: homebrew-alug
     homepage: https://github.com/shirakiya/alug
