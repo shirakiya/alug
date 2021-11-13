@@ -8,5 +8,5 @@ require (
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/stretchr/testify v1.7.0 // indirect
 	github.com/urfave/cli/v2 v2.3.0
-	gopkg.in/ini.v1 v1.63.2
+	gopkg.in/ini.v1 v1.64.0
 )
