@@ -7,6 +7,6 @@ require (
 	github.com/aws/aws-sdk-go v1.43.18
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/stretchr/testify v1.7.0 // indirect
-	github.com/urfave/cli/v2 v2.3.0
+	github.com/urfave/cli/v2 v2.4.0
 	gopkg.in/ini.v1 v1.66.4
 )
