@@ -4,7 +4,7 @@ go 1.13
 
 require (
 	bou.ke/monkey v1.0.2
-	github.com/aws/aws-sdk-go v1.50.20
+	github.com/aws/aws-sdk-go v1.50.21
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/stretchr/testify v1.7.0 // indirect
 	github.com/urfave/cli/v2 v2.24.4
